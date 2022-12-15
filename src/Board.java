@@ -2,8 +2,21 @@ public class Board {
 
     private char[][] fullBoard;
 
-    public Board() {
+    private boolean isPlaying;
+    private int currentPlayer;
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public Board(int currentPlayer) {
         fullBoard = new char[3][3];
+        isPlaying = true;
+        this.currentPlayer = currentPlayer;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 this.fullBoard[row][col] = ' ';
@@ -34,10 +47,16 @@ public class Board {
                 this.fullBoard[row - 1][col - 1] = 'O';
             }
         }
+        if (this.currentPlayer==1){
+            this.currentPlayer=2;
+        } else {
+            this.currentPlayer=1;
+        }
     }
 
     public String wins() {
         int xCount, oCount;
+        String winnerMessage = "The game is still going";
         //Look row for row
         for (int row = 0; row < 3; row++) {
             xCount = 0;
@@ -50,8 +69,10 @@ public class Board {
                 }
             }
             if (xCount == 3) {
+                this.isPlaying=false;
                 return "The winner is Player 1";
             } else if (oCount == 3) {
+                this.isPlaying=false;
                 return "The winner is Player 2";
             }
         }
@@ -67,23 +88,29 @@ public class Board {
                 }
             }
             if (xCount == 3) {
+                this.isPlaying=false;
                 return "The winner is Player 1";
             } else if (oCount == 3) {
+                this.isPlaying=false;
                 return "The winner is Player 2";
             }
         }
         //Look diagonals
         if (this.fullBoard[0][0] == this.fullBoard[1][1] && this.fullBoard[1][1] == this.fullBoard[2][2] &&
                 this.fullBoard[2][2] == 'X') {
+            this.isPlaying=false;
             return "The winner is Player 1";
         } else if (this.fullBoard[0][2] == this.fullBoard[1][1] && this.fullBoard[1][1] == this.fullBoard[2][0] &&
                 this.fullBoard[2][0] == 'X') {
+            this.isPlaying=false;
             return "The winner is Player 1";
         } else if (this.fullBoard[0][0] == this.fullBoard[1][1] && this.fullBoard[1][1] == this.fullBoard[2][2] &&
                 this.fullBoard[2][2] == 'O') {
+            this.isPlaying=false;
             return "The winner is Player 2";
         } else if (this.fullBoard[0][2] == this.fullBoard[1][1] && this.fullBoard[1][1] == this.fullBoard[2][0] &&
                 this.fullBoard[2][0] == 'O') {
+            this.isPlaying=false;
             return "The winner is Player 2";
         }
 
@@ -96,6 +123,7 @@ public class Board {
                 }
             }
         } if (spaceCount ==0){
+            this.isPlaying=false;
             return "The game is a Draw";
         }
         return "The game is still going";
