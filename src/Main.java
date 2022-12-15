@@ -1,5 +1,17 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        int playerStart;
+        boolean isPlaying;
+        System.out.println("Qué jugador empieza? el 1 o el 2?");
+        Scanner inputValue;
+        inputValue = new Scanner(System.in);
+        playerStart = inputValue.nextInt();
+
+
+
+        //Simulated game
         Board game = new Board();
         game.printBoard();
         game.shoot(1,1,1);
